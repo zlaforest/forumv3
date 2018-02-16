@@ -3,7 +3,7 @@
 
   Choose who you are :
   <select [(ngModel)]="formModel.level" name="level">
-    <option *ngFor = "let level of levels; let i = index"> {{level}} - {{i}}</option>
+    <option *ngFor = "let user of users;"> {{user.name}}</option>
   </select>
 </form>
 
