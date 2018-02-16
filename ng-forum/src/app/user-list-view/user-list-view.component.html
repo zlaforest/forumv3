@@ -1,0 +1,13 @@
+<html>
+<form>
+
+  Choose who you are :
+  <select [(ngModel)]="formModel.level" name="level">
+    <option *ngFor = "let level of levels; let i = index"> {{level}} - {{i}}</option>
+  </select>
+</form>
+
+You are : <strong>{{formModel.level}}</strong>
+
+</html>
+
