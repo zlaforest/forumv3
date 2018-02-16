@@ -6,25 +6,25 @@ import io.pax.forum.domain.User;
 import java.util.List;
 
 /**
- * Created by AELION on 15/02/2018.
+ * Created by AELION on 16/02/2018.
  */
-public class SimpleUser implements User {
-
+public class SimpleTopic implements Topic{
     int id;
     String name;
 
-    public SimpleUser(){
 
+
+    public SimpleTopic() {
     }
 
-    public SimpleUser(int id, String name) {
+    public SimpleTopic(int id, String name) {
         this.id = id;
         this.name = name;
     }
 
     @Override
     public int getId() {
-        return this.id;
+        return id;
     }
 
     public void setId(int id) {
@@ -33,7 +33,7 @@ public class SimpleUser implements User {
 
     @Override
     public String getName() {
-        return this.name;
+        return name;
     }
 
     public void setName(String name) {
@@ -41,7 +41,15 @@ public class SimpleUser implements User {
     }
 
     @Override
-    public List<? extends Topic> getTopics() {
+    public String toString() {
+        return "SimpleTopic{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
+
+    @Override
+    public List<? extends User> getUsers() {
         return null;
     }
 }

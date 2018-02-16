@@ -3,12 +3,13 @@ package io.pax.forum.domain;
 import java.util.List;
 
 /**
- * Created by AELION on 15/02/2018.
+ * Created by AELION on 16/02/2018.
  */
-public interface User {
+public interface Topic {
 
     int getId();
     String getName();
-    List<? extends Topic> getTopics();
+
+    List<? extends User> getUsers();
 
 }
