@@ -1,12 +1,13 @@
 package io.pax.forum.ws;
 
 import io.pax.forum.dao.TopicDao;
+import io.pax.forum.dao.UserDao;
 import io.pax.forum.domain.Topic;
+import io.pax.forum.domain.User;
+import io.pax.forum.domain.jdbc.FullTopic;
+import io.pax.forum.domain.jdbc.SimpleUser;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.sql.SQLException;
 import java.util.List;
@@ -14,7 +15,7 @@ import java.util.List;
 /**
  * Created by AELION on 16/02/2018.
  */
-@Path("topics")
+@Path("(id)/topics")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class TopicWS {
@@ -26,27 +27,42 @@ public class TopicWS {
         return topicDao.listTopics();
     }
 
-   /* @POST
-    /*return future wallet with an id*/
-   /* public Topic createTopic(Topic topic /* sent wallet, has no idea*//*) {
-       /* User user = topic.getUsers();
-        if (user == null) {
-            throw new NotAcceptableException("406: No user id sent");
+    @GET
+    @Path("{id}") // this is a path param
+    public Topic getTopic(@PathParam("id") int topicId) throws SQLException {
+
+        return new TopicDao().findTopicWithUser(topicId);
+
+    }
+
+    @POST
+    public Topic createTopic(FullTopic topic){
+
+        // Guards
+        User user = topic.getUser();
+
+        if(user == null){
+            // 400x : navigator sent wrong information
+            throw new NotAcceptableException("\n406: No user Id sent\n");
         }
-        if (wallet.getName().length() < 2) {
-            throw new NotAcceptableException("406: Wallet name must have at least 2 letters");
+
+        if (topic.getName().length() < 2){
+            throw new NotAcceptableException("\n406: No wallet name must have at least 2 letters\n");
         }
+
         try {
-            int id = new WalletDao().createWallet(user.getId(), wallet.getName());
+            int id = new TopicDao().createTopic(user.getId(), topic.getName());
 
-            User boundUser = wallet.getUser();
+            User boundUser = topic.getUser();
             SimpleUser simpleUser = new SimpleUser(boundUser.getId(), boundUser.getName());
+            return new FullTopic(id,  topic.getName(), simpleUser);
 
-            return new FullWallet(id, wallet.getName(), simpleUser);
         } catch (SQLException e) {
-            throw new ServerErrorException("Database error, sorry", 500);
+            // Breaks POLA
+            throw new ServerErrorException("\nDatabase error, sorry\n", 500);
         }
-    }*/
+
+    }
 
 
 }

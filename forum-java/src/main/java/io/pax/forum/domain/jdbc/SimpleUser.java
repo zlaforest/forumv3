@@ -41,7 +41,7 @@ public class SimpleUser implements User {
     }
 
     @Override
-    public List<? extends Topic> getTopics() {
+    public List<Topic> getTopics() {
         return null;
     }
 }

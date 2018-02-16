@@ -1,7 +1,9 @@
 package io.pax.forum.ws;
 
 import io.pax.forum.dao.UserDao;
+import io.pax.forum.domain.Topic;
 import io.pax.forum.domain.User;
+import io.pax.forum.domain.jdbc.FullUser;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -25,12 +27,30 @@ public class UserWS {
 
         }
 
-        /*@POST
-        public User createUser(String name) {
-            User user = createUser(name);
+    @GET
+    @Path("{id}") // this is a path param
+    public User getUser(@PathParam("id") int userId) throws SQLException {
 
-            return user;
-        }*/
+        return new UserDao().findUserWithTopic(userId);
 
+    }
+
+    @POST
+    /*return future user with an id*/
+    public User createWallet(FullUser user /* sent wallet, has no idea*/) {
+        List<Topic> topics = user.getTopics();
+
+        if (user.getName().length() < 2) {
+            throw new NotAcceptableException("406: User name must have at least 2 letters");
+        }
+        try {
+            int id = new UserDao().createUser(user.getName());
+
+
+            return new FullUser(id, user.getName(), user.getTopics());
+        } catch (SQLException e) {
+            throw new ServerErrorException("Database error, sorry",500);
+        }
+    }
 
 }

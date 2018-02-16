@@ -1,7 +1,10 @@
 package io.pax.forum.dao;
 
 import io.pax.forum.domain.Topic;
+import io.pax.forum.domain.User;
+import io.pax.forum.domain.jdbc.FullTopic;
 import io.pax.forum.domain.jdbc.SimpleTopic;
+import io.pax.forum.domain.jdbc.SimpleUser;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -19,7 +22,7 @@ public class TopicDao {
         List<Topic> topics = new ArrayList<>();
         Connection conn = this.connector.getConnection();
         Statement stmt = conn.createStatement();
-        ResultSet rs = stmt.executeQuery("SELECT * FROM topic");
+        ResultSet rs = stmt.executeQuery("SELECT * FROM topic t  JOIN user u ON t.user_id=u.id");
 
         while (rs.next()) {
             String name = rs.getString("name");
@@ -59,9 +62,40 @@ public class TopicDao {
 
     }
 
+    public User findTopicWithUser(int topicId) throws SQLException {
+
+        Connection connection = connector.getConnection();
+        String query = "SELECT * FROM user u RIGHT JOIN topic t ON t.user_id=u.id WHERE t.id = ?";
+        PreparedStatement stmt = connection.prepareStatement(query);
+        stmt.setInt(1,topicId);
+        ResultSet rs =  stmt.executeQuery();
+        Topic topic = null;
+        // always init list
+        List<User> users = new ArrayList<>();
+
+        while (rs.next()){
+            String topicName = rs.getString("t.name");
+            System.out.println("topicName:" + topicName);
+            topic = new FullTopic(topicId, topicName, users);
+
+            int userId = rs.getInt("u.id");
+            String userName = rs.getString("u.name");
+
+            if(userId>0) {
+                User user = new SimpleUser(userId, userName);
+                users.add(user);
+            }
+        }
+        rs.close();
+        stmt.close();
+        connection.close();
+        return topic;
+
+    }
+
     public static void main(String[] args) throws SQLException {
         TopicDao topicdao = new TopicDao();
-        topicdao.createTopic(1, "Cool_name_topic");
-        System.out.println(new TopicDao().listTopics());
+        //topicdao.createTopic(1, "Cool_name_topic");
+       // System.out.println(new TopicDao().listTopics());
     }
 }

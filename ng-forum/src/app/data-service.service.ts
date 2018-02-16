@@ -35,4 +35,15 @@ export class DataService{
 
   }
 
+  fetchUserWithTopics(user: User): Promise<User> {
+    let url = ('http://localhost:8080/forum/api/users/' + user.id)
+    return this.http
+      .get(url)
+      .toPromise()
+      .then(data => {
+        console.log('user with topic:', data);
+        return data as User
+      })
+  }
+
 }

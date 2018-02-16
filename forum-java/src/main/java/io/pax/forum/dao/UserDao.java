@@ -1,7 +1,10 @@
 package io.pax.forum.dao;
 
 
+import io.pax.forum.domain.Topic;
 import io.pax.forum.domain.User;
+import io.pax.forum.domain.jdbc.FullUser;
+import io.pax.forum.domain.jdbc.SimpleTopic;
 import io.pax.forum.domain.jdbc.SimpleUser;
 
 import java.sql.*;
@@ -22,7 +25,7 @@ public class UserDao {
         List<User> users = new ArrayList<>();
         Connection conn = this.connector.getConnection();
         Statement stmt = conn.createStatement();
-        ResultSet rs = stmt.executeQuery("SELECT * FROM user");
+        ResultSet rs = stmt.executeQuery("SELECT * FROM user u RIGHT JOIN topic t ON t.user_id=u.id WHERE t.id = ? ");
 
         while (rs.next()) {
             String name = rs.getString("name");
@@ -38,7 +41,7 @@ public class UserDao {
     }
 
 
-    public int createUser(String name) throws SQLException {
+   public int createUser(String name) throws SQLException {
         String query = "INSERT INTO user(name) VALUES (?);";
 
         System.out.println(query);
@@ -58,6 +61,37 @@ public class UserDao {
 
         return id;
     }
+
+   public User findUserWithTopic(int userId) throws SQLException {
+
+       Connection connection = connector.getConnection();
+       String query = "SELECT * FROM topic t RIGHT JOIN user u ON t.user_id=u.id WHERE u.id = ?";
+       PreparedStatement stmt = connection.prepareStatement(query);
+       stmt.setInt(1,userId);
+       ResultSet rs =  stmt.executeQuery();
+       User user = null;
+       // always init list
+       List<Topic> topics = new ArrayList<>();
+
+       while (rs.next()){
+           String userName = rs.getString("u.name");
+           System.out.println("userName:" + userName);
+           user = new FullUser(userId, userName, topics );
+
+           int topicId = rs.getInt("t.id");
+           String topicName = rs.getString("t.name");
+
+           if(topicId>0) {
+               Topic topic = new SimpleTopic(topicId, topicName);
+               topics.add(topic);
+           }
+       }
+       rs.close();
+       stmt.close();
+       connection.close();
+       return user;
+
+   }
 
      public static void main(String[] args) throws SQLException {
 

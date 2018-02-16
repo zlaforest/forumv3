@@ -3,8 +3,6 @@ package io.pax.forum.domain.jdbc;
 import io.pax.forum.domain.Topic;
 import io.pax.forum.domain.User;
 
-import java.util.List;
-
 /**
  * Created by AELION on 16/02/2018.
  */
@@ -49,7 +47,12 @@ public class SimpleTopic implements Topic{
     }
 
     @Override
-    public List<? extends User> getUsers() {
+    public User getUser() {
         return null;
     }
+
+    /* @Override
+    public List<? extends User> getUsers() {
+        return null;
+    }*/
 }
