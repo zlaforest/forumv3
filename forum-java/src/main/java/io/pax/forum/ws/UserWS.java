@@ -2,6 +2,7 @@ package io.pax.forum.ws;
 
 import io.pax.forum.dao.UserDao;
 import io.pax.forum.domain.User;
+import io.pax.forum.domain.jdbc.FullUser;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -18,12 +19,20 @@ import java.util.List;
 public class UserWS {
 
 
-        @GET
-        public List<User> getUser() throws SQLException {
-            UserDao dao = new UserDao();
-            return dao.listUsers();
+    @GET
+    public List<User> getUser() throws SQLException {
+        UserDao dao = new UserDao();
+        return dao.listUsers();
 
-        }
+    }
+
+    @GET
+    @Path("{id}") // this is a PathParam
+    public User getUser(@PathParam("id") int userId) throws SQLException {
+        FullUser user = new UserDao().findUserWithTopics(userId);
+        System.out.println(user);
+        return user;
+    }
 
         /*@POST
         public User createUser(String name) {
