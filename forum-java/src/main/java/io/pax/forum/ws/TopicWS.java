@@ -2,7 +2,9 @@ package io.pax.forum.ws;
 
 import io.pax.forum.dao.TopicDao;
 import io.pax.forum.domain.Topic;
+import io.pax.forum.domain.User;
 import io.pax.forum.domain.jdbc.FullTopic;
+import io.pax.forum.domain.jdbc.SimpleUser;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -33,15 +35,19 @@ public class TopicWS {
     }
 
     // JaxRS annotations
-   /* @POST
+    @POST
     /* returns future topics with an id */
-   /* public Topic createTopic(FullTopic topic){
+    public FullTopic createTopic(FullTopic topic){
 
         // Guards
-        Optional<User> option = topic.getUser();
+        User user = topic.getUser();
+        //Optional<User> option = topic.getUser();
 
-        if(! option.isPresent()){
+        /*if(! option.isPresent()){
             // 400x : navigator sent wrong information
+            throw new NotAcceptableException("\n406: No user Id sent\n");
+        }*/
+        if(user == null){
             throw new NotAcceptableException("\n406: No user Id sent\n");
         }
 
@@ -50,18 +56,19 @@ public class TopicWS {
         }
 
         try {
-            int id = new TopicDao().createTopic(option.get().getId(), topic.getName());
+            int id = new TopicDao().createTopic(user.getId(), topic.getName());
 
-            User boundUser = topic.getUser().get();
+            User boundUser = topic.getUser();
             SimpleUser simpleUser = new SimpleUser(boundUser.getId(), boundUser.getName());
             FullTopic fullTopic = new FullTopic(id, topic.getName(), topic.getComments());
            fullTopic.setUser(simpleUser);
            //fullTopic.setUser(topic.getUser());
 
             return fullTopic;
+
         } catch (SQLException e) {
             throw new ServerErrorException("\nDatabase error, sorry\n", 500);
         }
 
-    }*/
+    }
 }

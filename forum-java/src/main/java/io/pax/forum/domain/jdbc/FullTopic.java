@@ -38,4 +38,9 @@ public class FullTopic extends SimpleTopic {
         this.user = user;
     }
 
+
+    @Override
+    public SimpleUser getUser() {
+        return user;
+    }
 }

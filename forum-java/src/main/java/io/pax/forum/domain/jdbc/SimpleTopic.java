@@ -5,7 +5,6 @@ import io.pax.forum.domain.Topic;
 import io.pax.forum.domain.User;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Created by AELION on 19/02/2018.
@@ -38,10 +37,15 @@ public class SimpleTopic implements Topic{
         return this.name;
     }
 
-    @Override
+    /*@Override
     public Optional<User> getUser() {
         return Optional.empty();
         //return null;
+    }*/
+
+    @Override
+    public User getUser(){
+        return null;
     }
 
     @Override
