@@ -1,8 +1,10 @@
 package io.pax.forum.domain.jdbc;
 
+import io.pax.forum.domain.Comment;
 import io.pax.forum.domain.Topic;
 import io.pax.forum.domain.User;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -37,10 +39,10 @@ public class SimpleTopic implements Topic{
         return Optional.empty();
     }
 
-    /*@Override
-    public List<? extends Line> getLines() {
+    @Override
+    public List<? extends Comment> getComments() {
         return null;
-    }*/
+    }
 
     @Override
     public String toString() {

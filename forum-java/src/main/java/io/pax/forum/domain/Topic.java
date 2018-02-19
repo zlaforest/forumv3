@@ -1,5 +1,6 @@
 package io.pax.forum.domain;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -13,5 +14,5 @@ public interface Topic {
     default Optional<User> getUser(){
         return null;
     }
-    //List<? extends Comment> getComments();
+    List<? extends Comment> getComments();
 }
