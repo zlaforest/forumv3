@@ -15,9 +15,9 @@ public class FullUser extends SimpleUser {
         super();
     }
 
-    public FullUser(int id, String name, List<Topic> wallets) {
+    public FullUser(int id, String name, List<Topic> topics) {
         super(id, name);
-        this.topics = wallets;
+        this.topics = topics;
     }
 
     @Override

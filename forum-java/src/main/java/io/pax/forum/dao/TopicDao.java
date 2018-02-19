@@ -1,6 +1,9 @@
 package io.pax.forum.dao;
 
+import io.pax.forum.domain.Comment;
 import io.pax.forum.domain.Topic;
+import io.pax.forum.domain.jdbc.FullTopic;
+import io.pax.forum.domain.jdbc.SimpleComment;
 import io.pax.forum.domain.jdbc.SimpleTopic;
 
 import java.sql.*;
@@ -35,14 +38,55 @@ public class TopicDao {
         return topics;
     }
 
+    public FullTopic findTopicWithComments(int topicId) throws SQLException {
+        Connection conn = this.connector.getConnection();
 
+        String query = "SELECT * FROM topic t JOIN comment c ON t.topic_id=c.topic_id WHERE t.topic_id =?";
+        System.out.println(query);
+        PreparedStatement stmt = conn.prepareStatement(query);
+        stmt.setInt(1, topicId);
+        ResultSet rs = stmt.executeQuery();
+
+        FullTopic topic = null;
+        //user = null;
+        // pro tip: always init lists
+        List<Comment> comments= new ArrayList<>();
+
+        while (rs.next()) {
+            String topicName = rs.getString("t.name");
+            System.out.println("userName: "+topicName);
+
+            //user.setName(userName);
+            // user.setId(userId);
+
+            topic = new FullTopic(topicId, topicName, comments);
+
+            int userId =rs.getInt("c.user_id");
+            int commentId =rs.getInt("c.id");
+            String commentName = rs.getString("c.content");
+
+            if(topicId>0){
+                Comment comment = new SimpleComment(commentId,userId,topicId, commentName);
+                comments.add(comment);
+                System.out.println("[id:"+commentId +"]\t" +  commentName);
+            }
+
+        }
+
+        stmt.close();
+        conn.close();
+
+        return topic;
+
+    }
 
 
     public static void main(String[] args) throws SQLException {
         TopicDao topicdao = new TopicDao();
-        topicdao.listTopics();
+        //topicdao.listTopics();
         //userdao.createUser("Cool_name");
        // System.out.println(topicdao.listTopics());
+        topicdao.findTopicWithComments(2);
     }
 
 
