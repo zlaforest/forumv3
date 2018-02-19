@@ -10,9 +10,9 @@ public interface Topic {
 
     int getId();
     String getName();
-    //Optional<User> getUser();
-    default Optional<User> getUser(){
+    Optional<User> getUser();
+    /*default Optional<User> getUser(){
         return null;
-    }
+    }*/
     List<? extends Comment> getComments();
 }

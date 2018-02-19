@@ -31,4 +31,37 @@ public class TopicWS {
         System.out.println(topic);
         return topic;
     }
+
+    // JaxRS annotations
+   /* @POST
+    /* returns future topics with an id */
+   /* public Topic createTopic(FullTopic topic){
+
+        // Guards
+        Optional<User> option = topic.getUser();
+
+        if(! option.isPresent()){
+            // 400x : navigator sent wrong information
+            throw new NotAcceptableException("\n406: No user Id sent\n");
+        }
+
+        if (topic.getName().length() < 2){
+            throw new NotAcceptableException("\n406: No topic name must have at least 2 letters\n");
+        }
+
+        try {
+            int id = new TopicDao().createTopic(option.get().getId(), topic.getName());
+
+            User boundUser = topic.getUser().get();
+            SimpleUser simpleUser = new SimpleUser(boundUser.getId(), boundUser.getName());
+            FullTopic fullTopic = new FullTopic(id, topic.getName(), topic.getComments());
+           fullTopic.setUser(simpleUser);
+           //fullTopic.setUser(topic.getUser());
+
+            return fullTopic;
+        } catch (SQLException e) {
+            throw new ServerErrorException("\nDatabase error, sorry\n", 500);
+        }
+
+    }*/
 }

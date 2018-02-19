@@ -24,6 +24,10 @@ public class SimpleTopic implements Topic{
         this.name = name;
     }
 
+   /* public SimpleUser simpleUser(){
+        return this.user;
+    }*/
+
     @Override
     public int getId() {
         return this.id;
@@ -37,6 +41,7 @@ public class SimpleTopic implements Topic{
     @Override
     public Optional<User> getUser() {
         return Optional.empty();
+        //return null;
     }
 
     @Override

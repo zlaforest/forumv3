@@ -56,12 +56,4 @@ public class UserWS {
 
     }
 
-    /*@POST
-    public User createUser(String name) {
-        User user = createUser(name);
-
-        return user;
-    }*/
-
-
 }

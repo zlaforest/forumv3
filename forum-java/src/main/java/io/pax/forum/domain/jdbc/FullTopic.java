@@ -1,10 +1,11 @@
 package io.pax.forum.domain.jdbc;
 
 import io.pax.forum.domain.Comment;
-//import io.pax.forum.domain.SimpleTopic;
 
 import java.util.ArrayList;
 import java.util.List;
+
+//import io.pax.forum.domain.SimpleTopic;
 
 /**
  * Created by AELION on 19/02/2018.
@@ -12,6 +13,7 @@ import java.util.List;
 public class FullTopic extends SimpleTopic {
 
     List<Comment> comments = new ArrayList<>();
+    SimpleUser user;
 
     public FullTopic(){
         super();
@@ -31,4 +33,9 @@ public class FullTopic extends SimpleTopic {
     public List<Comment> getComments() {
         return this.comments;
     }
+
+    public void setUser(SimpleUser user) {
+        this.user = user;
+    }
+
 }
