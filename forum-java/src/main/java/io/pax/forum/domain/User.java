@@ -11,5 +11,4 @@ public interface User {
     String getName();
     List<? extends Topic> getTopics();
 
-
 }
