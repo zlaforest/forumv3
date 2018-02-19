@@ -1,0 +1,51 @@
+package io.pax.forum.domain.jdbc;
+
+import io.pax.forum.domain.Topic;
+import io.pax.forum.domain.User;
+
+import java.util.Optional;
+
+/**
+ * Created by AELION on 19/02/2018.
+ */
+public class SimpleTopic implements Topic{
+
+    int id;
+    String name;
+
+    // Useless constructor, but for Java EE
+    public SimpleTopic(){
+    }
+
+    public SimpleTopic(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    @Override
+    public int getId() {
+        return this.id;
+    }
+
+    @Override
+    public String getName() {
+        return this.name;
+    }
+
+    @Override
+    public Optional<User> getUser() {
+        return Optional.empty();
+    }
+
+    /*@Override
+    public List<? extends Line> getLines() {
+        return null;
+    }*/
+
+    @Override
+    public String toString() {
+        return this.name;
+    }
+
+    public void setName(String name) {this.name = name;}
+}
