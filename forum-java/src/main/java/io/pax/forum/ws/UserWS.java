@@ -34,12 +34,34 @@ public class UserWS {
         return user;
     }
 
-        /*@POST
-        public User createUser(String name) {
-            User user = createUser(name);
+    @POST
+    /* returns future wallets with an id */
+    public User createUser(FullUser user /**sent user, has no id*/) {
 
-            return user;
-        }*/
+        // Guards
+        //Optional<User> option = wallet.getUser();
+        if (user.getName().length() < 2) {
+            throw new NotAcceptableException("\n406: No user name must have at least 2 letters\n");
+        }
+
+        try {
+            int id = new UserDao().createUser(user.getName());
+            return new FullUser(id, user.getName(), user.getTopics());
+
+        } catch (SQLException e) {
+            // Breaks POLA
+            throw new ServerErrorException("\nDatabase error, sorry\n", 500);
+        }
+
+
+    }
+
+    /*@POST
+    public User createUser(String name) {
+        User user = createUser(name);
+
+        return user;
+    }*/
 
 
 }

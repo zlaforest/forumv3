@@ -41,7 +41,7 @@ public class UserDao {
     }
 
 
-   /* public int createUser(String name) throws SQLException {
+    public int createUser(String name) throws SQLException {
         String query = "INSERT INTO user(name) VALUES (?);";
 
         System.out.println(query);
@@ -60,7 +60,7 @@ public class UserDao {
         System.out.println("user id created: " + id);
 
         return id;
-    }*/
+    }
 
     public FullUser findUserWithTopics(int userId) throws SQLException {
         Connection conn = this.connector.getConnection();
@@ -106,7 +106,7 @@ public class UserDao {
      public static void main(String[] args) throws SQLException {
 
         UserDao userdao = new UserDao();
-        //userdao.createUser("Cool_name");
+        //userdao.createUser("Test_name");
         //System.out.println(new UserDao().listUsers());
         userdao.findUserWithTopics(1);
 
