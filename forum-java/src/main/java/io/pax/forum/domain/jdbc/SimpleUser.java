@@ -1,6 +1,9 @@
 package io.pax.forum.domain.jdbc;
 
+import io.pax.forum.domain.Topic;
 import io.pax.forum.domain.User;
+
+import java.util.List;
 
 /**
  * Created by AELION on 15/02/2018.
@@ -36,4 +39,11 @@ public class SimpleUser implements User {
     public void setName(String name) {
         this.name = name;
     }
+
+    public List<Topic> getTopics() {
+        return null;
+    }
+
+
+
 }

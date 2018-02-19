@@ -34,35 +34,9 @@ public class TopicDao {
 
         return topics;
     }
-/*
-    public int createWallet(int userId, String name) throws SQLException {
-        // Most important stuff of your life: NEVER EVER String concatenation in JDBC
-        String query = "INSERT INTO wallet (name, user_id) VALUES (?,?)"; //('test',2)
-        System.out.println(query);
-
-        Connection conn = this.connector.getConnection();
-        PreparedStatement stmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-        stmt.setInt(2, userId);
-        stmt.setString(1,name);
-       /*int rows = stmt.executeUpdate(query);
-
-        if(rows!=1){
-            throw new SQLException("Something wrong happened with : "+query);
-        }*/
-/*
-        stmt.executeUpdate();
-
-        ResultSet keys = stmt.getGeneratedKeys();
-        keys.next();
-        int test_id = keys.getInt(1);
-
-        stmt.close();
-        conn.close();
-
-        return test_id;
 
 
-    }*/
+
 
     public static void main(String[] args) throws SQLException {
         TopicDao topicdao = new TopicDao();

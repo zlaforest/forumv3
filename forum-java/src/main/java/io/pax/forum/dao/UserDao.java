@@ -1,7 +1,10 @@
 package io.pax.forum.dao;
 
 
+import io.pax.forum.domain.Topic;
 import io.pax.forum.domain.User;
+import io.pax.forum.domain.jdbc.FullUser;
+import io.pax.forum.domain.jdbc.SimpleTopic;
 import io.pax.forum.domain.jdbc.SimpleUser;
 
 import java.sql.*;
@@ -59,11 +62,54 @@ public class UserDao {
         return id;
     }
 
+    public FullUser findUserWithTopics(int userId) throws SQLException {
+        Connection conn = this.connector.getConnection();
+        //String query = "SELECT * FROM  wallet w JOIN user u ON w.user_id = u.id";
+        String query = "SELECT * FROM topic t JOIN user u ON t.user_id=u.id WHERE u.id =?";
+        System.out.println(query);
+        PreparedStatement stmt = conn.prepareStatement(query);
+        stmt.setInt(1, userId);
+        ResultSet rs = stmt.executeQuery();
+
+        FullUser user = null;
+        //user = null;
+        // pro tip: always init lists
+        List<Topic> topics= new ArrayList<>();
+
+        while (rs.next()) {
+            String userName = rs.getString("u.name");
+            System.out.println("userName: "+userName);
+
+            //user.setName(userName);
+           // user.setId(userId);
+
+            user = new FullUser(userId, userName, topics);
+
+            int topicId=rs.getInt("t.topic_id");
+            String topicName = rs.getString("t.name");
+
+            if(topicId>0){
+               Topic topic = new SimpleTopic(topicId, topicName);
+                topics.add(topic);
+                System.out.println("[id:"+topicId +"]\t" +  topicName);
+            }
+
+        }
+
+        stmt.close();
+        conn.close();
+
+        return user;
+
+    }
+
+
      public static void main(String[] args) throws SQLException {
 
         UserDao userdao = new UserDao();
         //userdao.createUser("Cool_name");
         //System.out.println(new UserDao().listUsers());
+        userdao.findUserWithTopics(1);
 
 
     }
