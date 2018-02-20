@@ -113,7 +113,7 @@ public class TopicDao {
         TopicDao topicdao = new TopicDao();
        // System.out.println(topicdao.listTopics());
         topicdao.findTopicWithComments(2);
-        topicdao.createTopic(5, "Cool");
+       // topicdao.createTopic(5, "Cool");
     }
 
 

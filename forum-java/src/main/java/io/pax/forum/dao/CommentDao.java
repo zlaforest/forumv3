@@ -67,7 +67,7 @@ public class CommentDao {
 
     public static void main(String[] args) throws SQLException {
         CommentDao commentdao = new CommentDao();
-        commentdao.createComment(4,5,"Test_Winter_is_comming");
+        //commentdao.createComment(4,5,"Test_Winter_is_comming");
         commentdao.listComments();
         // System.out.println(topicdao.listTopics());
     }

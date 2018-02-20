@@ -36,7 +36,7 @@ public class TopicWS {
 
     // JaxRS annotations
     @POST
-    /* returns future topics with an id */
+    /* returns future topic with an id */
     public FullTopic createTopic(FullTopic topic){
 
         // Guards
