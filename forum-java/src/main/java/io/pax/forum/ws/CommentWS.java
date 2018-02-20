@@ -24,13 +24,13 @@ public class CommentWS {
         return dao.listComments();
     }
 
-   /* @GET
+    @GET
     @Path("{id}") // this is a PathParam
     public Comment getComment(@PathParam("id") int commentId) throws SQLException {
-        SimpleComment simpleComment = new CommentDao().findById(commentId) ;
-        System.out.println(simpleComment);
-        return simpleComment;
-    }*/
+        Comment comment = new CommentDao().findById(commentId) ;
+        System.out.println(comment);
+        return comment;
+    }
 
     // JaxRS annotations
     @POST
