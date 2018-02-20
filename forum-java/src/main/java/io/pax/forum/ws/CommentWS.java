@@ -24,6 +24,14 @@ public class CommentWS {
         return dao.listComments();
     }
 
+   /* @GET
+    @Path("{id}") // this is a PathParam
+    public Comment getComment(@PathParam("id") int commentId) throws SQLException {
+        FullTopic topic = new TopicDao().findTopicWithComments(commentId) ;
+        System.out.println(topic);
+        return topic;
+    }*/
+
     // JaxRS annotations
     @POST
     /* returns future comments with an id */

@@ -41,12 +41,7 @@ public class TopicWS {
 
         // Guards
         User user = topic.getUser();
-        //Optional<User> option = topic.getUser();
 
-        /*if(! option.isPresent()){
-            // 400x : navigator sent wrong information
-            throw new NotAcceptableException("\n406: No user Id sent\n");
-        }*/
         if(user == null){
             throw new NotAcceptableException("\n406: No user Id sent\n");
         }

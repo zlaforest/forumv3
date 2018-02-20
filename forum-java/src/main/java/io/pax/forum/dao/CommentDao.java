@@ -37,6 +37,25 @@ public class CommentDao {
         return comments;
     }
 
+    public List<Comment> findById(int id) throws SQLException {
+        String query = "SELECT * FROM comment WHERE id= ?";
+
+        Connection conn = this.connector.getConnection();
+        PreparedStatement stmt = conn.prepareStatement(query);
+        stmt.setInt(1, id);
+        ResultSet rs = stmt.executeQuery();
+
+        List<Comment> comments = new ArrayList<>();
+        while (rs.next()) {
+            comments.add(new SimpleComment(rs.getInt("id"), rs.getInt("topic_id"), rs.getInt("user_id"), rs.getString("content")));
+            System.out.println(rs.getString("content"));
+        }
+        stmt.close();
+
+        return comments;
+
+    }
+
     public int createComment(int userId, int topicId, String comment) throws SQLException {
         // Most important stuff of your life: NEVER EVER String concatenation in JDBC
         String query = "INSERT INTO comment (user_id, topic_id, content) VALUES (?,?,?)"; //('test',2)
@@ -70,6 +89,7 @@ public class CommentDao {
         //commentdao.createComment(4,5,"Test_Winter_is_comming");
         commentdao.listComments();
         // System.out.println(topicdao.listTopics());
+        commentdao.findById(9);
     }
 
 
