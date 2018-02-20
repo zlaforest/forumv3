@@ -1,4 +1,5 @@
 package io.pax.forum.domain.jdbc;
+
 import io.pax.forum.domain.Topic;
 
 import java.util.ArrayList;

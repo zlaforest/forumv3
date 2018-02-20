@@ -4,7 +4,7 @@ import io.pax.forum.dao.TopicDao;
 import io.pax.forum.domain.Topic;
 import io.pax.forum.domain.User;
 import io.pax.forum.domain.jdbc.FullTopic;
-import io.pax.forum.domain.jdbc.SimpleUser;
+import io.pax.forum.domain.jdbc.FullUser;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -54,9 +54,12 @@ public class TopicWS {
             int id = new TopicDao().createTopic(user.getId(), topic.getName());
 
             User boundUser = topic.getUser();
-            SimpleUser simpleUser = new SimpleUser(boundUser.getId(), boundUser.getName());
+            List<Topic> topics = boundUser.getTopics();
+
             FullTopic fullTopic = new FullTopic(id, topic.getName(), topic.getComments());
-           fullTopic.setUser(simpleUser);
+            topics.add(fullTopic);
+            FullUser fullUser = new FullUser(boundUser.getId(), boundUser.getName(), null);
+           fullTopic.setUser(fullUser);
            //fullTopic.setUser(topic.getUser());
 
             return fullTopic;

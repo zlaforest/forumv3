@@ -55,6 +55,9 @@ public class UserDao {
         ResultSet keys = stmt.getGeneratedKeys();
         keys.next();
         int id = keys.getInt(1);
+
+
+
         stmt.close();
         conn.close();
         System.out.println("user id created: " + id);

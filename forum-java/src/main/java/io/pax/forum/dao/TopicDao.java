@@ -128,8 +128,8 @@ public class TopicDao {
 
     public static void main(String[] args) throws SQLException {
         TopicDao topicdao = new TopicDao();
-       // topicdao.findTopicWithComments(2);
-       // topicdao.createTopic(5, "Cool");
+        //topicdao.findTopicWithComments(2);
+        //topicdao.createTopic(5, "Cool_Topic_User5");
         topicdao.updateTopic(13, "Updated Topic number 13" );
         System.out.println(topicdao.listTopics());
     }

@@ -49,7 +49,7 @@ public class SimpleTopic implements Topic{
     }
 
     @Override
-    public List<? extends Comment> getComments() {
+    public List<Comment> getComments() {
         return null;
     }
 

@@ -13,7 +13,7 @@ import java.util.List;
 public class FullTopic extends SimpleTopic {
 
     List<Comment> comments = new ArrayList<>();
-    SimpleUser user;
+    FullUser user;
 
     public FullTopic(){
         super();
@@ -34,7 +34,7 @@ public class FullTopic extends SimpleTopic {
         return this.comments;
     }
 
-    public void setUser(SimpleUser user) {
+    public void setUser(FullUser user) {
         this.user = user;
     }
 

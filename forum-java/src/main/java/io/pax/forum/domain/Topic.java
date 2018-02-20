@@ -14,5 +14,5 @@ public interface Topic {
     /*default Optional<User> getUser(){
         return null;
     }*/
-    List<? extends Comment> getComments();
+    List<Comment> getComments();
 }
