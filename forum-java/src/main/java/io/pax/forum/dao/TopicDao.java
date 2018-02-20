@@ -100,6 +100,7 @@ public class TopicDao {
         ResultSet keys = stmt.getGeneratedKeys();
         keys.next();
         int test_id = keys.getInt(1);
+        System.out.println("topic id created: " + test_id);
 
         stmt.close();
         conn.close();
