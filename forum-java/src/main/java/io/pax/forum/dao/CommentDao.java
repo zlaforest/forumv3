@@ -37,7 +37,7 @@ public class CommentDao {
         return comments;
     }
 
-    public SimpleComment findById(int id) throws SQLException {
+    public Comment findById(int id) throws SQLException {
         String query = "SELECT * FROM comment WHERE id= ?";
 
         Connection conn = this.connector.getConnection();
@@ -45,9 +45,10 @@ public class CommentDao {
         stmt.setInt(1, id);
         ResultSet rs = stmt.executeQuery();
 
-        SimpleComment simpleComment=null;
+        Comment comment=null;
+
         while (rs.next()) {
-            simpleComment = new SimpleComment(rs.getInt("id"), rs.getInt("topic_id"), rs.getInt("user_id"), rs.getString("content"));
+            comment = new SimpleComment(rs.getInt("id"), rs.getInt("topic_id"), rs.getInt("user_id"), rs.getString("content"));
             //Comment comment = simpleComment; // CAST
             System.out.println("For id " + id + ":\t" + rs.getString("content"));
         }
@@ -55,7 +56,7 @@ public class CommentDao {
         stmt.close();
         conn.close();
 
-        return simpleComment;
+        return comment;
 
     }
 
@@ -92,7 +93,7 @@ public class CommentDao {
         //commentdao.createComment(4,5,"Test_Winter_is_comming");
         commentdao.listComments();
         // System.out.println(topicdao.listTopics());
-        SimpleComment comment = commentdao.findById(9);
+        //Comment comment = commentdao.findById(9);
     }
 
 
