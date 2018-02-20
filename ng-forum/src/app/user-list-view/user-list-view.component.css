@@ -1,0 +1,61 @@
+form {
+  background-color: azure;
+}
+
+#users{
+  background-color: azure;
+}
+#topics{
+  background-color: lightblue;
+}
+#comments{
+  background-color: cornflowerblue;
+}
+
+a{
+  text-decoration: none ;
+  color : black;
+}
+
+a:visited {
+  color: black;
+}
+
+ a:hover, a:focus, a:active {
+  text-decoration: none;
+  color: black;
+  background-color: darkseagreen;
+}
+
+
+
+strong {
+  font-variant: small-caps;
+  background-color: bisque;
+  }
+
+table{
+  border: dotted;
+}
+
+button {
+  background-color :lightgray;
+  border-radius: 12px;
+}
+
+button:hover {
+  background-color: antiquewhite;
+}
+
+#main{
+  float : right;
+  width : 240px;
+  height: 600px;
+  background-color: antiquewhite;
+  text-align: center;
+  list-style:  none;
+}
+
+#content{
+  margin-right: 245px;
+}

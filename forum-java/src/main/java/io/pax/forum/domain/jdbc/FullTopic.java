@@ -5,8 +5,6 @@ import io.pax.forum.domain.Comment;
 import java.util.ArrayList;
 import java.util.List;
 
-//import io.pax.forum.domain.SimpleTopic;
-
 /**
  * Created by AELION on 19/02/2018.
  */
