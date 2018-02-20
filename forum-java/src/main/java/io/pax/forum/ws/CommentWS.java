@@ -26,7 +26,7 @@ public class CommentWS {
 
     // JaxRS annotations
     @POST
-    /* returns future topics with an id */
+    /* returns future comments with an id */
     public Comment createComment(SimpleComment comment){
 
         // Guards
@@ -45,13 +45,7 @@ public class CommentWS {
         try {
 
             int id = new CommentDao().createComment(userId, comment.getTopicId(), comment.getContent());
-
-           // User boundUser = topic.getUser();
             SimpleComment simpleComment = new SimpleComment(id, userId, comment.getTopicId(),comment.getContent());
-            //FullTopic fullTopic = new FullTopic(id, topic.getName(), topic.getComments());
-            //fullTopic.setUser(simpleUser);
-            //fullTopic.setUser(topic.getUser());
-
             return simpleComment;
 
         } catch (SQLException e) {

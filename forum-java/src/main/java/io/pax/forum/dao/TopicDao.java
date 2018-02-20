@@ -108,12 +108,30 @@ public class TopicDao {
         return test_id;
     }
 
+    public void updateTopic(int topicId, String newName) throws SQLException {
+        String query = "UPDATE topic SET name = ? WHERE topic_id = ? ";
+        //System.out.println(query);
+
+        Connection conn = this.connector.getConnection();
+        PreparedStatement statement = conn.prepareStatement(query);
+
+        statement.setInt(2, topicId);
+        statement.setString(1,newName);
+        statement.executeUpdate();
+        statement.close();
+        conn.close();
+
+        System.out.println("topic id updated: " + topicId);
+
+    }
+
 
     public static void main(String[] args) throws SQLException {
         TopicDao topicdao = new TopicDao();
-       // System.out.println(topicdao.listTopics());
-        topicdao.findTopicWithComments(2);
+       // topicdao.findTopicWithComments(2);
        // topicdao.createTopic(5, "Cool");
+        topicdao.updateTopic(13, "Updated Topic number 13" );
+        System.out.println(topicdao.listTopics());
     }
 
 
